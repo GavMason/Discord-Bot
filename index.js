@@ -17,8 +17,7 @@ client.on("ready", () => {
   client.user.setActivity("ಥ_ಥ");
 
   let commands = client.application?.commands;
-  const prefix = "-";
-
+  
   commands?.create({
     name: "ping",
     description: "Replies with pong.",
@@ -68,16 +67,10 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 client.on("messageCreate", async (message) => {
-  // Check for prefix and a bot didnt send the message
-  // if(!message.content.startsWith(prefix)) {
-  //   return
-  // }
+  // Check for prefix and a bot author
+  if (message.author.bot || !message.content.startsWith('-')) return;
 
-  if (message.author.bot) return;
-
-  if(message.content.includes("slap") ) {
-
-
+  if(message.content.includes("-slap") ) {
     let user = message.mentions.users.first()
     if(user === undefined) return;
 
@@ -96,15 +89,12 @@ client.on("messageCreate", async (message) => {
           ),
       ],
     });
-  }
-
-
-  if (message.content === "ping") {
+  } else if (message.content === "-ping") {
     const reply = await message.reply("pong");
     reply.react("❤");
-  } else if (message.content === "Ping") {
+  } else if (message.content === "-Ping") {
     message.reply("PPPOOOOONNNNGGGG!!!!!!");
-  } else if (message.content === "PING") {
+  } else if (message.content === "-PING") {
     message.reply("Stop yelling at me. >:(");
   }
 });
