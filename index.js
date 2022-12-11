@@ -1,6 +1,7 @@
 import { Client, GatewayIntentBits, Partials, EmbedBuilder } from "discord.js";
 import "dotenv/config";
 
+// Required packages
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -10,6 +11,31 @@ const client = new Client({
   ],
   partials: [Partials.Message, Partials.Reaction],
 });
+
+////////////////////////////////////////////////////////////
+// JS Functions
+
+// Format seconds function
+// function format(seconds) {
+//   const hours = Math.floor(seconds / (60 * 60));
+//   const minutes = Math.floor(seconds % (60 * 60) / 60);
+
+//   return `${hours} hour(s) and ${minutes} minute(s)`;
+// }
+
+// Creates the get_gif_url function
+async function get_gif_url(query) {
+  const MAX_RESULTS = 50
+
+  // Fetches the gif url
+  const gif_response = await fetch(`https://tenor.googleapis.com/v2/search?q=${query}&key=${process.env.TENOR_API_KEY}&limit=${MAX_RESULTS}&media_filter=minimal`);
+  // Converts it to json
+  const gif_data = await gif_response.json();
+  // Returns the url
+  // console.log(gif_data.results[Math.floor(Math.random() * (MAX_RESULTS - 1) + 1)].url)
+  return gif_data.results[Math.floor(Math.random() * (MAX_RESULTS - 1) + 1)].url
+}
+////////////////////////////////////////////////////////////
 
 client.on("ready", () => {
   console.log("The bot is ready");
@@ -70,7 +96,26 @@ client.on("messageCreate", async (message) => {
   // Check for prefix and a bot author
   if (message.author.bot || !message.content.startsWith('-')) return;
 
-  if(message.content.includes("-slap") ) {
+
+  if(message.content.startsWith("-gif")) {
+    // Checks for empty command
+    const gif_command = message.content.replace('-gif ', '')
+    if(gif_command.trim().length === 4 ) {
+      return
+    }
+
+    message.channel.send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle('GIFs')
+          .setColor("Gold")
+          .setDescription("Generating GIF...")
+          // .setImage(await get_gif_url(message.content.replace('-gif ', '')))
+      ]
+    })
+    message.channel.send(await get_gif_url(gif_command))
+
+  }else if(message.content.startsWith("-slap")) {
     let user = message.mentions.users.first()
     if(user === undefined) return;
 
@@ -89,7 +134,20 @@ client.on("messageCreate", async (message) => {
           ),
       ],
     });
-  } else if (message.content === "-ping") {
+  } else if(message.content === "-bawk") {
+      message.channel.send({
+        embeds: [
+          new EmbedBuilder()
+            .setDescription('Here is the best Stardew chicken i could find.')
+            .setTitle('Chicken :)')
+            .setColor("Gold")
+            .setImage(
+              "https://media.tenor.com/QrTv5JhdH1cAAAAi/chicken-stardew-valley.gif" 
+            ),
+        ],
+      });
+  } 
+  else if (message.content === "-ping") {
     const reply = await message.reply("pong");
     reply.react("❤");
   } else if (message.content === "-Ping") {
