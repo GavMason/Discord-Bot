@@ -127,15 +127,37 @@ client.on("messageCreate", async (message) => {
       "Yoru",
       "Harbor",
     ];
-    const agent =
-      agents[Math.floor(Math.random() * (agents.length - 1) + 1) - 1];
+    const agentGIFS = [
+      'https://media.tenor.com/TsbMVK412mgAAAAd/jett.gif',
+      'https://media.tenor.com/g9A24_pALocAAAAC/viper-valorant.gif',
+      'https://media.tenor.com/Hr5kj-7Ou2wAAAAd/skyyart-sova.gif',
+      'https://media.tenor.com/syoxj40mMUAAAAAC/astra-valorant.gif',
+      'https://media.tenor.com/PMD_bHs1a_0AAAAC/neon-bastos.gif',
+      'https://media.tenor.com/RUPO2gANpNkAAAAC/sage-sage-valorant.gif',
+      'https://media.tenor.com/hONwxlUrZWQAAAAi/pettheskye-skye.gif',
+      'https://media.tenor.com/K7WqPQnzSQUAAAAd/teleport-chamber.gif',
+      'https://media.tenor.com/lYQDXnj56IAAAAAd/cypher-moonwalk.gif',
+      'https://media.tenor.com/cw_OWBERHz4AAAAC/raze-mohid.gif',
+      'https://media.tenor.com/FsY3tbEvAwYAAAAC/killjoy-valorant-valorant.gif',
+      'https://media.tenor.com/pypLAHr1-8MAAAAC/reyna-reyna-valorant.gif',
+      'https://media.tenor.com/4pqiXrat9t8AAAAC/shaking-the-cell-door-breach.gif',
+      'https://media.tenor.com/GeQTgV7pYOYAAAAC/omen-valorant.gif',
+      'https://media.tenor.com/TMEpyWcdm_YAAAAd/kayo-valorant.gif',
+      'https://media.tenor.com/nIjkdlQgWXQAAAAC/shocked-brimstone.gif',
+      'https://media.tenor.com/n3NPvU-gSRwAAAAC/phoenix-phoenix-valorant.gif',
+      'https://media.tenor.com/jDi3Vfv1HlYAAAAC/valorant-yoru.gif',
+      'https://media.tenor.com/cBF4NoI3xfAAAAAd/glaring-harbor.gif'
+    ]
+    const i = Math.floor(Math.random() * (agents.length - 1) + 1) - 1
+    const agent = agents[i];
+    const agentGIF = agentGIFS[i]
     message.channel.send({
       embeds: [
         new EmbedBuilder()
           .setTitle("Val Agent Randomizer")
           .setColor("Gold")
-          .setDescription(`${agent} is your Valorant Agent!!`),
-        // .setImage("https://media.tenor.com/DXL84KB6lscAAAAi/confetti-cute.gif")
+          .setDescription(`${agent} is your Valorant Agent!!`)
+          .setImage(agentGIF)
       ],
     });
   } else if (message.content.startsWith("-who")) {
