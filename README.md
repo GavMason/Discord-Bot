@@ -6,3 +6,5 @@ To run use the command,
 
 `nodemon`
 
+
+Production for this bot is hosted on Heroku.
