@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Partials, EmbedBuilder } from "discord.js";
+import { Client, GatewayIntentBits, Partials, EmbedBuilder, MessageManager } from "discord.js";
 import "dotenv/config";
 
 // Required packages
@@ -96,8 +96,32 @@ client.on("messageCreate", async (message) => {
   // Check for prefix and a bot author
   if (message.author.bot || !message.content.startsWith('-')) return;
 
+  if(message.content.startsWith("-agent")){
+    const agents = ['Jett', 'Viper', 'Sova', 'Astra', 'Neon', 'Sage', 'Skye', 'Chamber', 'Cypher', 'Raze', 'Killjoy', 'Reyna', 'Breach', 'Omen', 'KAY/0', 'Brimstone', 'Phoenix', 'Yoru', 'Harbor']
+    const agent = agents[Math.floor(Math.random() * (agents.length - 1) + 1) - 1]
+    message.channel.send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle('Val Agent Randomizer')
+          .setColor("Gold")
+          .setDescription(`${agent} is your Valorant Agent!!`)
+          // .setImage("https://media.tenor.com/DXL84KB6lscAAAAi/confetti-cute.gif")
+      ]
+    })
+  } else if(message.content.startsWith("-who")) {
+    const people = ['Gavin', 'Rebecca', 'Alex', 'Kenzie']
 
-  if(message.content.startsWith("-gif")) {
+    const person = people[Math.floor(Math.random() * (people.length - 1) + 1) - 1]
+    message.channel.send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle('Who\'\s Picking??!!')
+          .setColor("Gold")
+          .setDescription(`${person} is our lucky winner! ☜(ﾟヮﾟ☜)`)
+          .setImage("https://media.tenor.com/DXL84KB6lscAAAAi/confetti-cute.gif")
+      ]
+    })
+  } else if(message.content.startsWith("-gif")) {
     // Checks for empty command
     const gif_command = message.content.replace('-gif ', '')
     if(gif_command.trim().length === 4 ) {
