@@ -133,7 +133,7 @@ client.on("messageCreate", async (message) => {
         new EmbedBuilder()
           .setTitle('GIFs')
           .setColor("Gold")
-          .setDescription("Generating GIF...")
+          .setDescription(`Generating   ✨${gif_command}✨   GIF...`)
           // .setImage(await get_gif_url(message.content.replace('-gif ', '')))
       ]
     })
