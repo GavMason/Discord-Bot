@@ -17,6 +17,8 @@ const client = new Client({
   ],
   partials: [Partials.Message, Partials.Reaction],
 });
+// const YouTube = require('simple-youtube-api')
+// const youtube = new YouTube(process.env.YOUTUBE_API_KEY)
 
 ////////////////////////////////////////////////////////////
 // JS Functions
@@ -105,7 +107,22 @@ client.on("messageCreate", async (message) => {
   // Check for prefix and a bot author
   if (message.author.bot || !message.content.startsWith("-")) return;
 
-  if (message.content.startsWith("-agent")) {
+  if(message.content.startsWith("-role")) {
+
+    const roles = ["Top", "Mid", "Adc", "Jungle", "Sup", "Fill"];
+
+    const role = roles[Math.floor(Math.random() * (roles.length - 1) + 1) - 1];
+    
+    message.channel.send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle("LOL Roles")
+          .setColor("Gold")
+          .setDescription(`${message.author} is playing ${role} 😔😔😔`)
+      ],
+    });
+
+  } else if (message.content.startsWith("-agent")) {
     const agents = [
       "Jett",
       "Viper",
