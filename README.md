@@ -1,10 +1,11 @@
-### ITGMA's Discord Bot
+### Gav's Discord Bot
 
 This is my first attempt at a Discord bot using the Discord.js API
+
 
 To run use the command,
 
 `nodemon`
 
 
-Production for this bot is hosted on Heroku.
+Production database for this bot is hosted on Heroku.
