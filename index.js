@@ -46,12 +46,57 @@ async function get_gif_url(query) {
   return gif_data.results[Math.floor(Math.random() * (MAX_RESULTS - 1) + 1)]
     .url;
 }
+
+// Function to schedule a reminder. 
+function scheduleReminder() {
+  // Set the time for the reminder (10 PM EST)
+  const targetHour = 22; // 10 PM
+  const timeZoneOffset = -5; // EST timezone offset
+
+  const now = new Date();
+  const targetDate = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    targetHour + timeZoneOffset,
+    0, // Minutes
+    0, // Seconds
+    0 // Milliseconds
+  );
+
+  if (targetDate <= now) {
+    // If the target time has already passed today, set it for tomorrow
+    targetDate.setDate(targetDate.getDate() + 1);
+  }
+
+  // Calculate the delay until the reminder time in milliseconds
+  const delay = targetDate - now;
+
+  setTimeout(() => {
+    const channel = client.channels.cache.get(process.env.GHG_Announcements_CID); // GHG-projects announcements channel ID
+    if (channel) {
+      // Send the reminder message!
+      channel.send({
+        embeds: [
+          new EmbedBuilder()
+            .setDescription('@everyone Wakey wakey eggs and bakey! Let\'s get this fucking money!')
+            .setColor("Gold")
+            .setImage("https://tenor.com/view/wake-up-wakey-wakey-wake-up-wake-up-wake-up-wake-up-wake-up-wake-up-wake-up-wake-up-wake-up-gif-19858788"),
+        ],
+      });
+    }
+    scheduleReminder(); // Schedule the next reminder
+  }, delay);
+}
 ////////////////////////////////////////////////////////////
 
 client.on("ready", () => {
   console.log("The bot is ready");
 
   client.user.setActivity("ಥ_ಥ");
+
+  // This will schedule daily reminders for the GHG-Projects server
+  scheduleReminder();
 
   let commands = client.application?.commands;
 
