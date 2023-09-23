@@ -96,7 +96,7 @@ client.on("ready", () => {
   client.user.setActivity("ಥ_ಥ");
 
   // This will schedule daily reminders for the GHG-Projects server
-  scheduleReminder();
+  // scheduleReminder();
 
   let commands = client.application?.commands;
 
